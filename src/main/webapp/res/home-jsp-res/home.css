@@ -1,0 +1,26 @@
+header {
+    text-align: center;
+    color: white;
+}
+
+/*======================================================================*/
+
+menu {
+    padding-top: 5%;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+
+    margin: 0 200px 0;
+    max-width: 100%;
+}
+
+/*======================================================================*/
+
+.login {
+    margin-right: 5px;
+}
+
+.register {
+    margin-left: 5px;
+}

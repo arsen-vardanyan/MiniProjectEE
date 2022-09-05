@@ -1,0 +1,235 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: cursive;
+}
+
+html {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+}
+
+@keyframes gradient {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+main {
+    padding-top: 2%;
+    display: flex;
+    flex-flow: column;
+}
+
+/*======================================================================*/
+
+input,
+textarea {
+    font-size: 1.25em;
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid silver;
+    -webkit-box-shadow: inset 0 12px 12px -12px rgb(0 0 0 / 30%);
+    box-shadow: inset 0 12px 12px -12px rgb(0 0 0 / 30%);
+    padding-left: 2%;
+}
+
+select {
+    font-size: 1.25em;
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid silver;
+    -webkit-box-shadow: inset 0 12px 12px -12px rgb(0 0 0 / 30%);
+    box-shadow: inset 0 12px 12px -12px rgb(0 0 0 / 30%);
+    padding-left: 2%;
+}
+
+select { text-align: center; }
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input,
+textarea {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #757575;
+}
+
+input:focus,
+textarea:focus { outline: none; }
+
+label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 15px;
+    top: 15px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+input:focus ~ label,
+input:valid ~ label,
+textarea:focus ~ label,
+textarea:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: white;
+}
+
+.bar {
+    position: relative;
+    display: block;
+    width: 300px;
+}
+
+.bar:before,
+.bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5264AE;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {left: 50%;}
+
+.bar:after {right: 50%;}
+
+input:focus ~ .bar:before,
+input:focus ~ .bar:after,
+textarea:focus ~ .bar:before,
+textarea:focus ~ .bar:after { width: 50%; }
+
+.highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+input:focus ~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+@-webkit-keyframes inputHighlighter {
+    from { background: #5264AE; }
+    to  {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to  {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to  {
+        width: 0;
+        background: transparent;
+    }
+}
+
+
+textarea:focus ~ .highlight {
+    -webkit-animation: textareaHighlighter 0.3s ease;
+    -moz-animation: textareaHighlighter 0.3s ease;
+    animation: textareaHighlighter 0.3s ease;
+}
+
+@-webkit-keyframes textareaHighlighter {
+    from { background: #5264AE; }
+    to  {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes textareaHighlighter {
+    from { background: #5264AE; }
+    to  {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes textareaHighlighter {
+    from { background: #5264AE; }
+    to  {
+        width: 0;
+        background: transparent;
+    }
+}
+
+/*======================================================================*/
+
+button {
+    border-radius: 4px;
+    background-color: #5ca1e1;
+    border: none;
+    color: #fff;
+    text-align: center;
+    font-size: 32px;
+    padding: 16px;
+    width: 220px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 36px;
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0, .7);
+}
+
+button {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+button:after {
+    content: "➭";
+    position: absolute;
+    opacity: 0;
+    top: 14px;
+    right: -20px;
+    transition: 0.5s;
+}
+
+button:hover {
+    padding-right: 24px;
+    padding-left:8px;
+}
+
+button:hover:after {
+    opacity: 1;
+    right: 10px;
+}
