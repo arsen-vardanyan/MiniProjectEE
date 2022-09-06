@@ -8,10 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="shortcut icon" type="image/png" href="res/images/knight.png">
-    <link rel="stylesheet" type="text/css" href="res/general.css">
-    <link rel="stylesheet" type="text/css" href="res/home-jsp-res/home.css">
-    <script src="res/home-jsp-res/home.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="res/home.css">
+    <script src="res/home.js" defer></script>
     <title>Authorization</title>
 </head>
 <body>
@@ -28,14 +26,14 @@
         <div class="login">
             <form id="login" class="input-group" action="login" method="post">
 
-                <div class="input-group">
+                <div class="inputs">
                     <input type="text" class="input-field" name="log_email" id="log_email" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Eamil</label>
                 </div>
 
-                <div class="input-group">
+                <div class="inputs">
                     <input type="text" class="input-field" name="log_password" id="log_password" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
@@ -57,49 +55,49 @@
         <div class="register">
             <form id="register" class="input-group" action="register"  method="post">
 
-                <div class="input-group">
+                <div class="inputs">
                     <input type="text" class="input-field" name="reg_name" autocomplete="off" id="reg_name" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Name</label>
                 </div>
 
-                <div class="input-group">
+                <div class="inputs">
                     <input type="text" class="input-field" name="reg_surname" id="reg_surname" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Surname</label>
                 </div>
 
-                <div class="input-group">
+                <div class="inputs">
                     <input type="number" class="input-field"  name="reg_age" id="reg_age" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Age</label>
                 </div>
 
-                <div class="input-group">
+                <div class="inputs">
                     <input type="text" class="input-field" name="reg_email" id="reg_email" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Email</label>
                 </div>
 
-                <div class="input-group">
+                <div class="inputs">
                     <input type="tel" class="input-field" name="reg_phone_number" id="reg_phone_number" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Phone</label>
                 </div>
 
-                <div class="input-group">
+                <div class="inputs">
                     <input type="password" class="input-field" name="reg_password" id="reg_password" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Password</label>
                 </div>
 
-                <div class="input-group">
+                <div class="inputs">
                     <select name="reg_gender" class="input-field" id="reg_gender" required>
                         <option value="MALE">Male</option>
                         <option value="FEMALE">Female</option>

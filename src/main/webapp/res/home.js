@@ -1,7 +1,7 @@
 let text = [
     "Hi! Welcome to my mini social network.",
-    "If you have an account, you can sign in by filling out the fields on the left:",
-    "And if not, you can create an account on the right. Good luck"
+    "If you have an account, you can sign in by filling out the fields on the right:",
+    "And if not, you can create an account on the left. Good luck"
 ];
 
 let speed = 50;

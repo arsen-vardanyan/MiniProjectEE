@@ -15,6 +15,8 @@ public class ArticleManager {
     Logger logger = Logger.getLogger(UserManager.class.getName());
     private final Connection connection = DBConnectionProvider.getInstance().getConnection();
     private final CommentManager commentManager = new CommentManager();
+    private User author;
+
     @SneakyThrows
     public Article save(Article article) {
         String sql = "insert into articles " +
@@ -36,7 +38,7 @@ public class ArticleManager {
 
 
     @SneakyThrows
-    public List<Article> articlesByAuthor(User author) {
+    public List<Article> articlesByAuthor() {
         List<Article> articles = new ArrayList<>();
         PreparedStatement statement = connection.prepareStatement("select * from articles where user_id = ?");
         statement.setInt(1, author.getId());
@@ -91,7 +93,6 @@ public class ArticleManager {
         int i = statement1.executeUpdate();
         if(i>0) System.out.println("Article deleted");
         else System.out.println("Wrong ID");
-
     }
 
     public Article findById(int id) {

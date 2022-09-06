@@ -13,9 +13,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/res/images/knight.png">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/general.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/user-home-jsp-res/user-home.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/user-home.css">
     <script src="" defer></script>
     <title>My Page</title>
 </head>
@@ -23,171 +21,164 @@
 <main>
 
     <header>
-        <div class="social-network">
-            <h1><span>Social</span>Network</h1>
+        <div>
+            <h4>My page:
+                <% User currentUser = (User) request.getSession().getAttribute("currentUser");%>
+                <%= currentUser.getName() %> <%= currentUser.getSurname() %>
+            </h4>
         </div>
 
-        <nav>
-            <div>
-                <img src="images/home.png">
-                <a href=""><div>Home</div></a>
-            </div>
-            <div>
-                <img src="images/gallery.png">
-                <a href=""><div>Gallery</div></a>
-            </div>
-            <div>
-                <img src="images/members.png">
-                <a href=""><div>Members</div></a>
-            </div>
-            <div>
-                <img src="images/logout.png">
-                <a href=""><div>Logout</div></a>
-            </div>
-        </nav>
-    </header>
-
-    <menu>
-        <div class="add-article">
-            <form id="addArticle" class="input-group" action="add-article" method="post">
-
-                <div class="input-group">
-                    <input type="text" class="input-field" name="add_article_title" id="add_article_title">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label for="add_article_title">Title</label>
+        <div>
+            <form action="logout" method="get">
+                <div class="inputs">
+                    <button type="submit">Log out</button>
                 </div>
-
-                <div class="input-group">
-                    <textarea class="input-field" name="add_article_content" id="add_article_content"></textarea>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label for="add_article_content">Content</label>
-                </div>
-
-                <div><button type="submit" class="submit-btn">Add Article</button></div>
             </form>
         </div>
+    </header>
 
-        <div class="all-articles">
+    <div class="add-article">
+        <form id="addArticle" class="input-group" action="add-article" method="post">
 
+            <div class="inputs"><label for="add_article_title">
+                Title:
+                <input type="text" class="input-field" name="add_article_title" id="add_article_title">
+            </label></div>
+
+            <div class="inputs"><label for="add_article_content"> Content:
+                <textarea class="input-field" name="add_article_content" id="add_article_content">
+                </textarea>
+            </label></div>
+
+            <button type="submit" class="submit-btn">Add Article</button>
+        </form>
+    </div>
+
+    <div class="all-articles">
+        <table frame="box" rules="all">
+            <thead>
+            <th>Tile</th>
+            <th>Conent</th>
+            <th>Author</th>
+            <th>Comments</th>
+            <th>Add Comment</th>
+            </thead>
             <% List<Article> allArticles = ((List<Article>) request.getAttribute("allArticles")); %>
             <% for (int i = 0; i < allArticles.size(); i += 1) { %>
-
-            <div class="posts">
-                <div class="post">
-                    <%Article article =allArticles.get(i); %>
-                    <div class="section">
-                        <div><h5>
-                            <span>By</span> <%= allArticles.get(i).getAuthor().getName() %>
-                        </h5></div>
-
-                        <div><h3>
-                            <%= allArticles.get(i).getTitle() %>
-                        </h3></div>
-
-                        <div><p>
-                            <%= allArticles.get(i).getContent() %>
-                        </p></div>
-
-                        <div class="comments">
-                            <% for (int j = 0; j < article.getComments().size(); j += 1) { %>
-                            <%Comment comment =  article.getComments().get(j);%>
-                            <%=comment.getContent()%>
+            <tr>
+                <% Article article = allArticles.get(i); %>
+                <td>
+                    <%= allArticles.get(i).getTitle() %>
+                </td>
+                <td>
+                    <%= allArticles.get(i).getContent() %>
+                </td>
+                <td>
+                    <%= allArticles.get(i).getAuthor().getName() %>
+                    <%= allArticles.get(i).getAuthor().getSurname() %>
+                </td>
+                <td>
+                    <% for (int j = 0; j < article.getComments().size(); j += 1) { %>
+                        <% Comment comment =  article.getComments().get(j); %>
+                        <b><i>
                             <%= comment.getAuthor().getName() %>
-                            <form action="add-comment" method="post">
-                                <input style="visibility: hidden" name="addedArticleId" value="<%= allArticles.get(i).getId() %>">
-                                <input name="addedCommentContent" placeholder="Comment">
-                                <button type="submit">Add comment</button>
-                            </form>
-                            <%}%>
+                            <%= comment.getAuthor().getSurname() %>
+                        </i></b><br>
+                        <%= comment.getContent() %>
+                    <br><br>
+                    <% } %>
+                </td>
+                <td>
+                    <form action="add-comment" method="post">
+                        <div class="inputs">
+                            <input style="visibility: hidden" name="addedArticleId" value="<%= allArticles.get(i).getId() %>">
+                            <input name="addedCommentContent" placeholder="Comment">
+                            <button type="submit">Add comment</button>
                         </div>
-                    </div>
-
-                    <div class="button">
-                        <form action="delete-article" method="post">
-                            <input style="visibility: hidden" name="deletedArticleId" value="<%= allArticles.get(i).getId()%>">
+                    </form>
+                </td>
+                <td>
+                    <form action="delete-article" method="post">
+                        <div class="inputs">
+                            <input style="visibility: hidden" name="deletedArticleId" value="<%= allArticles.get(i).getId() %>">
                             <button type="submit">Delete article</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
             <% } %>
-        </div>
-    </menu>
+        </table>
+    </div>
 
 </main>
 </body>
 </html>
 
+<%--<menu>--%>
+<%--    <div class="add-article">--%>
+<%--        <form id="addArticle" class="input-group" action="add-article" method="post">--%>
 
-<%--    <h1> MY PAGE--%>
-<%--        <% User currentUser = (User) request.getSession().getAttribute("currentUser");%>--%>
-<%--        <%= currentUser.getName() %> <%= currentUser.getSurname() %>--%>
-<%--    </h1>--%>
+<%--            <div class="input-group">--%>
+<%--                <input type="text" class="input-field" name="add_article_title" id="add_article_title">--%>
+<%--                <span class="highlight"></span>--%>
+<%--                <span class="bar"></span>--%>
+<%--                <label for="add_article_title">Title</label>--%>
+<%--            </div>--%>
 
+<%--            <div class="input-group">--%>
+<%--                <textarea class="input-field" name="add_article_content" id="add_article_content"></textarea>--%>
+<%--                <span class="highlight"></span>--%>
+<%--                <span class="bar"></span>--%>
+<%--                <label for="add_article_content">Content</label>--%>
+<%--            </div>--%>
 
-<%--        <div class="add-article">--%>
-<%--            <form id="addArticle" class="input-group" action="add-article" method="post">--%>
-<%--                <label for="add_article_title">--%>
-<%--                    Title:--%>
-<%--                    <input type="text" class="input-field" name="add_article_title" id="add_article_title">--%>
-<%--                </label><br>--%>
+<%--            <div><button type="submit" class="submit-btn">Add Article</button></div>--%>
+<%--        </form>--%>
+<%--    </div>--%>
 
-<%--                <label for="add_article_content"> Content:--%>
-<%--                    <textarea class="input-field" name="add_article_content" id="add_article_content">--%>
-<%--                    </textarea>--%>
-<%--                </label><br>--%>
+<%--    <div class="all-articles">--%>
 
-<%--                <button type="submit" class="submit-btn">Add Article</button>--%>
-<%--            </form>--%>
-<%--        </div>--%>
+<%--        <% List<Article> allArticles = ((List<Article>) request.getAttribute("allArticles")); %>--%>
+<%--        <% for (int i = 0; i < allArticles.size(); i += 1) { %>--%>
 
-<%--        <div class="all-articles">--%>
-<%--            <table>--%>
-<%--                <thead>--%>
-<%--                <th>Tile</th>--%>
-<%--                <th>Conent</th>--%>
-<%--                <th>Author name</th>--%>
-<%--                <th>Comments</th>--%>
-<%--                <th>Add  Comment</th>--%>
-<%--                </thead>--%>
-<%--                <%List<Article> allArticles = ((List<Article>) request.getAttribute("allArticles"));%>--%>
-<%--                <% for (int i = 0; i < allArticles.size(); i += 1) { %>--%>
-<%--                <tr>--%>
-<%--                    <%Article article =allArticles.get(i); %>--%>
-<%--                    <td><%=allArticles.get(i).getTitle()%>--%>
-<%--                    </td>--%>
-<%--                    <td><%=allArticles.get(i).getContent()%>--%>
-<%--                    </td>--%>
-<%--                    <td><%=allArticles.get(i).getAuthor().getName()%>--%>
-<%--                    </td>--%>
-<%--                    <td>--%>
+<%--        <div class="posts">--%>
+<%--            <div class="post">--%>
+<%--                <% Article article =allArticles.get(i); %>--%>
+<%--                <div class="section">--%>
+<%--                    <div><h5>--%>
+<%--                        <span>By</span> <%= allArticles.get(i).getAuthor().getName() %>--%>
+<%--                    </h5></div>--%>
+
+<%--                    <div><h3>--%>
+<%--                        <%= allArticles.get(i).getTitle() %>--%>
+<%--                    </h3></div>--%>
+
+<%--                    <div><p>--%>
+<%--                        <%= allArticles.get(i).getContent() %>--%>
+<%--                    </p></div>--%>
+
+<%--                    <div class="comments">--%>
 <%--                        <% for (int j = 0; j < article.getComments().size(); j += 1) { %>--%>
-<%--                        <%Comment comment =  article.getComments().get(j);%>--%>
-<%--                        <%=comment.getContent()%>--%>
-<%--                        <%=comment.getAuthor().getName()%></br>--%>
-
-<%--                        <%}%>--%>
-        <%--                <c:forEach var="comment" items="${article.getComments()}">--%>
-        <%--                    <font color="#00CC00"><c:out value="${comment.}"/>,</font>--%>
-        <%--                </c:forEach>--%>
-<%--                    </td>--%>
-<%--                    <td>--%>
+<%--                        <% Comment comment =  article.getComments().get(j); %>--%>
+<%--                        <%= comment.getContent()%>--%>
+<%--                        <%= comment.getAuthor().getName() %>--%>
 <%--                        <form action="add-comment" method="post">--%>
-<%--                            <input style="visibility: hidden" name="addedArticleId" value="<%= allArticles.get(i).getId()%>">--%>
+<%--                            <input style="visibility: hidden" name="addedArticleId" value="<%= allArticles.get(i).getId() %>">--%>
 <%--                            <input name="addedCommentContent" placeholder="Comment">--%>
 <%--                            <button type="submit">Add comment</button>--%>
 <%--                        </form>--%>
+<%--                        <%}%>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
 
-<%--                    </td>--%>
-<%--                    <td>--%>
-<%--                        <form action="delete-article" method="post">--%>
-<%--                            <input style="visibility: hidden" name="deletedArticleId" value="<%= allArticles.get(i).getId()%>">--%>
-<%--                            <button type="submit">Delete article</button>--%>
-<%--                        </form>--%>
-<%--                    </td>--%>
-<%--                </tr>--%>
-<%--            <% } %>--%>
-<%--            </table>--%>
+<%--                <div class="button">--%>
+<%--                    <form action="delete-article" method="post">--%>
+<%--                        <input style="visibility: hidden" name="deletedArticleId" value="<%= allArticles.get(i).getId()%>">--%>
+<%--                        <button type="submit">Delete article</button>--%>
+<%--                    </form>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 <%--        </div>--%>
+<%--        <% } %>--%>
+<%--    </div>--%>
+<%--</menu>--%>

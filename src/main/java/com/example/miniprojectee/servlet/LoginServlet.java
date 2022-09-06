@@ -32,11 +32,9 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("currentUser", currentUser);
             resp.sendRedirect("/MiniProjectEE_war_exploded/user-home");
-        }else {
+        } else {
             resp.sendRedirect("/MiniProjectEE_war_exploded/home?log_error=Email not exist");
         }
-
-
     }
 
 }
